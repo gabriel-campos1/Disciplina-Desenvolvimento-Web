@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .aprovado { background-color: lightgreen;}
+        .reprovado { background-color: red;}
+    </style>
+</head>
+<body>
+    <form id="formAtvd" onsubmit="calcular(event)">
+        Nome do Aluno: <input type="text" id="nomeAluno" name="nomeAluno"> <br>
+        Nota 1:  <input type="number" id="nota1" name="nota1" step="any"> <br>
+        Nota 2: <input type="number" id="nota2" name="nota2" step="any"> <br>
+        
+        <input type="submit" value="Adicionar Aluno">
+    </form>
+<br>
+<br>
+<br>
+    <table border="3" id="tabela">
+        <tbody>
+            <tr>
+                <th>Nome do Aluno</th>
+                <th>Nota 1</th>
+                <th>Nota 2</th>
+                <th>Média</th>
+                <th>Situação</th>
+            </tr>
+        </tbody>
+    </table>
+
+    <button onclick="limparLista()"> Limpar Lista </button>
+
+
+
+<script>
+function calcular(event) {
+    event.preventDefault();
+
+    let tbody = document.getElementById("tabela").querySelector("tbody");
+    let novaLinha = document.createElement("tr");
+
+    let nomeAluno = document.getElementById("nomeAluno").value;
+    let nota1 = parseFloat(document.getElementById("nota1").value);
+    let nota2 = parseFloat(document.getElementById("nota2").value);
+    let media = (nota1 + nota2) /2;
+
+    let situacao;
+    if (media >= 7) {
+        situacao = "Aprovado"
+        novaLinha.classList.add("aprovado");
+    } else {
+        situacao = "Reprovado"
+        novaLinha.classList.add("reprovado");
+    }
+
+
+
+    let celula1 = document.createElement("td");
+    celula1.innerText = nomeAluno;
+
+    let celula2 = document.createElement("td")
+    celula2.innerText = nota1
+
+    let celula3 = document.createElement("td")
+    celula3.innerText = nota2
+
+    let celula4 = document.createElement("td")
+    celula4.innerText = media
+
+    let celula5 = document.createElement("td")
+    celula5.innerText = situacao
+
+    novaLinha.appendChild(celula1)
+    novaLinha.appendChild(celula2)
+    novaLinha.appendChild(celula3)
+    novaLinha.appendChild(celula4)
+    novaLinha.appendChild(celula5)
+
+    novaLinha.addEventListener("click", function() {
+        this.remove();
+    });
+
+    
+
+
+    tbody.appendChild(novaLinha)
+} 
+
+function limparLista() {
+        let tbody = document.getElementById("tabela").querySelector("tbody");
+        tbody.innerHTML = `
+            <tr>
+                <th>Nome do Aluno</th>
+                <th>Nota 1</th>
+                <th>Nota 2</th>
+                <th>Média</th>
+                <th>Situação</th>
+            </tr>
+        `;
+    }
+
+
+</script>
+
+
+
+
+
+
+
+</body>
+
+
+
+
+</html>
